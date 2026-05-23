@@ -15,7 +15,8 @@ Created by [xjvkex](https://github.com/xjvkex).
 * 🌐 **Dual Installation Modes:**
   * **Offline Mode:** Uses the local `OllamaSetup.exe` (if present) to install in about 15-30 seconds depending on system specs.
   * **Online Mode:** If the installer is missing, it automatically fetches and runs the latest official Ollama Windows setup bootstrap online.
-* 🛠️ **Diagnostics & Error Handling:** Explicit diagnostic messages print exactly which step (directory creation, environment writing, or installer execution) failed, enabling instant debugging.
+* 🛠️ **System-Wide Auto PATH Setup:** Automatically appends the installation folder to your Windows system-wide **Machine `PATH`** environment variable. This ensures the `ollama` CLI command is globally recognized by all system users, preventing the elevated-admin UAC profile isolation bug that typical user PATH additions cause on Windows.
+* 🪟 **Diagnostics & Error Handling:** Explicit diagnostic messages print exactly which step (directory creation, environment writing, or installer execution) failed. Uses safe non-delayed expansions to avoid block-jumping parsing quirks.
 * 🪟 **Parentheses-Safe:** Engineered using `GOTO` branching to bypass classic Windows Command Prompt parsing bugs when directories contain parentheses (like `d:\AI(s)\ollama`).
 
 ---

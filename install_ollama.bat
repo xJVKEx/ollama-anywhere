@@ -60,10 +60,14 @@ setx OLLAMA_MODELS "%MODELS_DIR%" /M > nul || goto ERROR
 set "OLLAMA_MODELS=%MODELS_DIR%"
 echo     OLLAMA_MODELS is set system-wide to: %MODELS_DIR%
 
-:: 5. Add Ollama directory to User PATH
-echo [*] Adding Ollama to your User PATH...
-set "ERR_MSG=Failed to append Ollama install directory to User PATH."
-powershell -Command "$p=[Environment]::GetEnvironmentVariable('Path','User'); if($p -split ';' -notcontains '%TARGET_DIR%'){$newPath = ($p + ';%TARGET_DIR%') -replace ';;',';'; [Environment]::SetEnvironmentVariable('Path',$newPath,'User'); Write-Host '    Successfully added to PATH.'} else {Write-Host '    Already in PATH.'}" || goto ERROR
+:: 5. Add Ollama directory to Machine (System-wide) PATH
+echo [*] Adding Ollama to your Machine PATH...
+set "ERR_MSG=Failed to append Ollama install directory to Machine PATH."
+:: NOTE: Writing to 'Machine' instead of 'User' PATH is highly critical here.
+:: Since the script runs elevated (potentially under UAC for a different Admin profile),
+:: updating 'User' PATH would configure it for the elevated administrator account,
+:: NOT the standard user running the script. System-wide (Machine) PATH applies to all users.
+powershell -Command "$p=[Environment]::GetEnvironmentVariable('Path','Machine'); if($p -split ';' -notcontains '%TARGET_DIR%'){$newPath = ($p + ';%TARGET_DIR%') -replace ';;',';'; [Environment]::SetEnvironmentVariable('Path',$newPath,'Machine'); Write-Host '    Successfully added to Machine PATH.'} else {Write-Host '    Already in Machine PATH.'}" || goto ERROR
 
 :: 6. Check if Ollama is already installed in this directory
 if exist "%TARGET_DIR%\ollama.exe" (
@@ -133,7 +137,10 @@ exit /b 0
 :ERROR
 echo.
 echo =====================================================================
-echo [!] FAILURE: !ERR_MSG!
+:: Using standard %ERR_MSG% expansion instead of !ERR_MSG! inside the final
+:: :ERROR block to guarantee 100% safety against delayed expansion parsing bugs
+:: when jumping out of parenthesized IF blocks via GOTO.
+echo [!] FAILURE: %ERR_MSG%
 echo =====================================================================
 echo.
 echo Press any key to exit...
