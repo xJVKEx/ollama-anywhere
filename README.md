@@ -10,12 +10,12 @@ Created by [xjvkex](https://github.com/xjvkex).
 
 * 🚀 **100% Portable & Dynamic:** Auto-detects the active drive and directory where it is run (using `%~dp0`). You can drop this entire folder onto any drive and run the `.bat` file to install it exactly *there*.
 * 🛡️ **Admin Privilege Verification:** Built-in validation to ensure registry edits and PATH configurations succeed without silent permissions failures.
-* 💾 **Smart Model Redirect:** Automatically configures the persistent User environment variable `OLLAMA_MODELS` to point to a local `models/` folder inside this directory.
+* 💾 **System-Wide Model Redirect:** Configures the permanent system-wide `OLLAMA_MODELS` environment variable (`setx /M`) to point to a local `models/` folder inside this directory. This guarantees that all users on the computer utilize the secondary drive models directory, avoiding the typical elevated admin user setx registry isolation.
 * 🔄 **Smart Reinstall / Restore Check:** If you run the script and Ollama is already present (e.g., after a fresh Windows wipe but keeping secondary drives intact), the script automatically detects it, shows the installed version, and offers to **skip binary installation** while instantly restoring your environment variables and PATH configs.
 * 🌐 **Dual Installation Modes:**
   * **Offline Mode:** Uses the local `OllamaSetup.exe` (if present) to install in about 15-30 seconds depending on system specs.
   * **Online Mode:** If the installer is missing, it automatically fetches and runs the latest official Ollama Windows setup bootstrap online.
-* 🛠️ **Auto PATH Setup:** Automatically appends the installation folder to your Windows User `PATH` environment variable so you can run the `ollama` CLI command from any new terminal.
+* 🛠️ **Diagnostics & Error Handling:** Explicit diagnostic messages print exactly which step (directory creation, environment writing, or installer execution) failed, enabling instant debugging.
 * 🪟 **Parentheses-Safe:** Engineered using `GOTO` branching to bypass classic Windows Command Prompt parsing bugs when directories contain parentheses (like `d:\AI(s)\ollama`).
 
 ---
@@ -40,7 +40,7 @@ ollama-anywhere/
 2. Right-click **`install_ollama.bat`** and select **Run as Administrator**.
 3. The script will:
    * Setup target folders.
-   * Add environment variables permanently.
+   * Add environment variables system-wide.
    * Silently install or restore Ollama.
 4. **Important:** Close any open terminal windows and open a new one to reload your updated `PATH`.
 5. Run your favorite local LLMs! For example:
