@@ -7,9 +7,9 @@
 :: locally to save space on your C: drive.
 :: =====================================================================
 
-title Ollama Installer
+title Ollama Anywhere Installer
 echo =====================================================================
-echo           Ollama Custom Dynamic Automated Installer / Restorer
+echo                     Ollama Anywhere Installer
 echo =====================================================================
 echo.
 

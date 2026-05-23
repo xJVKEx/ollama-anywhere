@@ -1,6 +1,8 @@
-# 🦙 Portable Ollama D-Drive Installer & Restorer
+# 🦙 Ollama Anywhere
 
-A fully automated, dynamic, and portable Windows installer script for **Ollama**. This setup enables you to install Ollama on any secondary drive (like the **D:** drive) and permanently routes all massive Large Language Models (LLMs) to store in the same custom directory, keeping your **C:** drive fast and clean.
+A fully automated, dynamic, and 100% portable Windows installer and restorer script for **Ollama**. This setup enables you to run Ollama from any drive or folder (e.g. `D:\AI(s)\ollama` or an external USB) and permanently routes all massive Large Language Models (LLMs) to store in the same custom directory, keeping your **C:** drive fast and clean.
+
+Created by [xjvkex](https://github.com/xjvkex).
 
 ---
 
@@ -19,7 +21,7 @@ A fully automated, dynamic, and portable Windows installer script for **Ollama**
 ## 📂 Project Structure
 
 ```
-d:\AI(s)\ollama\
+ollama-anywhere/
 ├── install_ollama.bat  <-- The automated setup script
 ├── .gitignore          <-- Excludes massive binaries & models from Git
 ├── README.md           <-- This documentation file
